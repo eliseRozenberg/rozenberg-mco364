@@ -2,14 +2,10 @@ package rozenberg.mco364.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JPanel;
 
 public class Canvis extends JPanel {
@@ -24,7 +20,7 @@ public class Canvis extends JPanel {
 	private Tool tool;
 
 	public Canvis() {
-		tool = new LineTool();
+		tool = new PencilTool();
 		this.setBackground(Color.black);
 
 		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
@@ -64,8 +60,13 @@ public class Canvis extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.setColor(this.color);
 		g.drawImage(buffer, 0, 0, null);
 		tool.drawPreview(g);
+	}
+
+	public void setTool(Tool tool) {
+		this.tool = tool;
 	}
 
 	public void setColor(Color color) {

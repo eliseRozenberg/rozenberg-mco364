@@ -10,7 +10,7 @@ public class LineTool implements Tool {
 	private int y2;
 
 	public void mousePressed(Graphics g, int x, int y) {
-		g.setColor(Color.cyan);
+		g.setColor(Color.blue);
 		this.x1 = x;
 		this.y1 = y;
 		this.x2 = x;
@@ -18,7 +18,7 @@ public class LineTool implements Tool {
 	}
 
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(Color.cyan);
+		g.setColor(Color.blue);
 		g.drawLine(this.x1, this.y1, x, y);
 
 	}
@@ -29,7 +29,7 @@ public class LineTool implements Tool {
 	}
 
 	public void drawPreview(Graphics g) {
-		g.setColor(Color.cyan);
+		g.setColor(Color.blue);
 		g.drawLine(this.x1, this.y1, x2, y2);
 	}
 

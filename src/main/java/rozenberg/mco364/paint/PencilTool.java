@@ -18,15 +18,13 @@ public class PencilTool implements Tool {
 	}
 
 	public void mouseDragged(Graphics g, int x, int y) {
-		g.setColor(Color.red);
+		g.setColor(Color.RED);
 		g.drawLine(x, y, this.x, this.y);
-		this.x=x;
-		this.y=y;
+		this.x = x;
+		this.y = y;
 	}
 
 	public void drawPreview(Graphics g) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
