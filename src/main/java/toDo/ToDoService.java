@@ -1,4 +1,4 @@
-package rozenberg.mco364.toDo;
+package toDo;
 
 import retrofit2.http.GET;
 import java.util.List;

@@ -1,25 +1,24 @@
-package rozenberg.mco364.paint;
+package paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class OvalTool implements Tool {
+public class RectangleTool implements Tool {
 	private int x1, y1, x2, y2, tempX, tempY, width, height;
 
 	public void mousePressed(Graphics g, int x, int y) {
-		g.setColor(Color.orange);
+		g.setColor(Color.green);
 		x1 = x;
 		y1 = y;
 		x2 = x;
 		y2 = y;
-
 	}
 
 	public void mouseReleased(Graphics g, int x, int y) {
-		g.setColor(Color.orange);
+		g.setColor(Color.green);
 		x2 = x;
 		y2 = y;
-		g.drawOval(tempX, tempY, width, height);
+		g.drawRect(tempX, tempY, width, height);
 	}
 
 	public void mouseDragged(Graphics g, int x, int y) {
@@ -28,7 +27,7 @@ public class OvalTool implements Tool {
 	}
 
 	public void drawPreview(Graphics g) {
-		g.setColor(Color.orange);
+		g.setColor(Color.green);
 		tempX = x1;
 		tempY = y1;
 		width = x2 - x1;
@@ -42,6 +41,6 @@ public class OvalTool implements Tool {
 			tempY = y2;
 			height = y1 - y2;
 		}
-		g.drawOval(tempX, tempY, width, height);
+		g.drawRect(tempX, tempY, width, height);
 	}
 }

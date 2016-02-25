@@ -1,4 +1,4 @@
-package rozenberg.mco364.paint;
+package paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -23,7 +23,7 @@ public class Canvis extends JPanel {
 		tool = new PencilTool();
 		this.setBackground(Color.black);
 
-		buffer = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
+		buffer = new BufferedImage(900, 900, BufferedImage.TYPE_INT_ARGB);
 		this.addMouseListener(new MouseListener() {
 
 			public void mouseReleased(MouseEvent event) {
@@ -60,7 +60,6 @@ public class Canvis extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(this.color);
 		g.drawImage(buffer, 0, 0, null);
 		tool.drawPreview(g);
 	}

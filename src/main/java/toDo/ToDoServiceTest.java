@@ -1,17 +1,8 @@
-package rozenberg.mco364.toDo;
-
-import java.awt.Checkbox;
+package toDo;
 import java.io.IOException;
-import java.net.InterfaceAddress;
-import java.net.ResponseCache;
 import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.theories.Theories;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;

@@ -1,4 +1,4 @@
-package rozenberg.mco364.paint;
+package paint;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,17 +23,19 @@ public class PaintFrame extends JFrame {
 
 	private Canvis canvis;
 	private Container container;
-	private JPanel toolPanel,drawPanel,fillPanel;
-	private JButton lineButton, pencilButton, rectangleButton, ovalButton, rectangleFButton, ovalFButton, bucketButton;
+	private JPanel toolPanel, drawPanel, fillPanel;
+	private JButton lineButton, pencilButton, rectangleButton, ovalButton, rectangleFButton, ovalFButton, bucketButton,
+			eraseButton, newButton;
 
 	private Tool lineTool, pencilTool, rectangleTool, rectangleFTool, ovalTool, ovalFTool, bucketTool;
 	private Font font;
-	
+
 	public PaintFrame() {
 
 		setTitle("Paint");
-		setSize(800, 600);
+		setSize(900, 900);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setResizable(false);
 		container = getContentPane();
 
 		canvis = new Canvis();
@@ -48,6 +50,8 @@ public class PaintFrame extends JFrame {
 		ovalButton = new JButton("Oval");
 		ovalFButton = new JButton("Fill Oval");
 		bucketButton = new JButton("Bucket");
+		eraseButton = new JButton("Erase");
+		newButton = new JButton("New Page");
 
 		lineTool = new LineTool();
 		pencilTool = new PencilTool();
@@ -99,31 +103,39 @@ public class PaintFrame extends JFrame {
 				canvis.setTool(bucketTool);
 			}
 		});
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// erase canvis
+			}
+		});
+		eraseButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// add erase by passing colors into setTool
+			}
+		});
+
 	}
 
 	public void addCompnents() {
 		container.add(toolPanel, BorderLayout.NORTH);
 		container.add(canvis, BorderLayout.CENTER);
-		
-		toolPanel.add(drawPanel,BorderLayout.WEST);
-		toolPanel.add(fillPanel,BorderLayout.EAST);
-		
-		drawPanel.add(pencilButton);
-		drawPanel.add(lineButton);
-		drawPanel.add(rectangleButton);
-		drawPanel.add(ovalButton);
-		
-		fillPanel.add(rectangleFButton);
-		fillPanel.add(ovalFButton);
-		
+
+		toolPanel.add(pencilButton);
+		toolPanel.add(lineButton);
+		toolPanel.add(rectangleButton);
+		toolPanel.add(ovalButton);
+		toolPanel.add(rectangleFButton);
+		toolPanel.add(ovalFButton);
+		toolPanel.add(bucketButton);
+		toolPanel.add(newButton);
+		toolPanel.add(eraseButton);
+
 	}
 
 	public void formatComponents() {
 		container.setLayout(new BorderLayout());
-		toolPanel.setLayout(new BorderLayout());
-		drawPanel.setLayout(new FlowLayout());
-		fillPanel.setLayout(new FlowLayout());
-		
+		toolPanel.setLayout(new FlowLayout());
+
 		pencilButton.setBorder(new LineBorder(Color.red, 5, true));
 		lineButton.setBorder(new LineBorder(Color.blue, 5, true));
 		rectangleButton.setBorder(new LineBorder(Color.green, 5, true));
@@ -131,7 +143,9 @@ public class PaintFrame extends JFrame {
 		ovalButton.setBorder(new LineBorder(Color.orange, 5, true));
 		ovalFButton.setBackground(Color.orange);
 		bucketButton.setBackground(Color.yellow);
-		
+		eraseButton.setBackground(Color.white);
+		newButton.setBackground(Color.gray);
+
 		font = new Font("Calibri", Font.PLAIN, 20);
 		pencilButton.setFont(font);
 		lineButton.setFont(font);
@@ -145,6 +159,9 @@ public class PaintFrame extends JFrame {
 		ovalButton.setFont(font);
 		ovalFButton.setFont(font);
 		bucketButton.setFont(font);
+		newButton.setFont(font);
+		eraseButton.setFont(font);
+
 	}
 
 	public static void main(String[] args) {

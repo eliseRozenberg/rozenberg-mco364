@@ -1,4 +1,4 @@
-package rozenberg.mco364.toDo;
+package toDo;
 
 public class ToDo {
 	private int userId;

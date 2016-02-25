@@ -1,4 +1,4 @@
-package rozenberg.mco364.paint;
+package paint;
 
 import java.awt.Graphics;
 
