@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.util.Stack;
+
 import javax.swing.JPanel;
 
 public class Canvis extends JPanel {
@@ -16,6 +18,8 @@ public class Canvis extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private BufferedImage buffer;
+	private Stack<BufferedImage> undo;
+	private Stack<BufferedImage> redo;
 	private Color color;
 	private Tool tool;
 
@@ -23,6 +27,8 @@ public class Canvis extends JPanel {
 		tool = new PencilTool();
 		this.setBackground(Color.black);
 
+		undo = new Stack<BufferedImage>();
+		redo = new Stack<BufferedImage>();
 		buffer = new BufferedImage(900, 900, BufferedImage.TYPE_INT_ARGB);
 		this.addMouseListener(new MouseListener() {
 
