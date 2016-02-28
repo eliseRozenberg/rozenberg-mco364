@@ -7,9 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,11 +18,11 @@ public class PaintFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Canvis canvis;
+	private Canvas canvas;
 	private Container container;
 	private JPanel toolPanel, drawPanel, fillPanel;
 	private JButton lineButton, pencilButton, rectangleButton, ovalButton, rectangleFButton, ovalFButton, bucketButton,
-			eraseButton, newButton;
+			newButton, colorButton, undoButton, redoButton;
 
 	private Tool lineTool, pencilTool, rectangleTool, rectangleFTool, ovalTool, ovalFTool, bucketTool;
 	private Font font;
@@ -38,7 +35,7 @@ public class PaintFrame extends JFrame {
 		setResizable(false);
 		container = getContentPane();
 
-		canvis = new Canvis();
+		canvas = new Canvas(Color.black);
 		toolPanel = new JPanel();
 		drawPanel = new JPanel();
 		fillPanel = new JPanel();
@@ -50,8 +47,10 @@ public class PaintFrame extends JFrame {
 		ovalButton = new JButton("Oval");
 		ovalFButton = new JButton("Fill Oval");
 		bucketButton = new JButton("Bucket");
-		eraseButton = new JButton("Erase");
 		newButton = new JButton("New Page");
+		colorButton = new JButton("Color");
+		undoButton = new JButton("Undo");
+		redoButton = new JButton("Redo");
 
 		lineTool = new LineTool();
 		pencilTool = new PencilTool();
@@ -59,7 +58,7 @@ public class PaintFrame extends JFrame {
 		rectangleFTool = new RectangleFillTool();
 		ovalTool = new OvalTool();
 		ovalFTool = new OvalFillTool();
-		bucketTool = new BucketTool();
+		bucketTool = new BucketTool(canvas);
 
 		formatComponents();
 		addCompnents();
@@ -67,58 +66,83 @@ public class PaintFrame extends JFrame {
 
 	}
 
-	public void actionListeners() {
+	private void actionListeners() {
 		lineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canvis.setTool(lineTool);
+				canvas.setTool(lineTool);
+				undoButton.setEnabled(true);
 			}
 		});
 		pencilButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canvis.setTool(pencilTool);
+				canvas.setTool(pencilTool);
+				undoButton.setEnabled(true);
 			}
 		});
 		rectangleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canvis.setTool(rectangleTool);
+				canvas.setTool(rectangleTool);
+				undoButton.setEnabled(true);
 			}
 		});
 		rectangleFButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canvis.setTool(rectangleFTool);
+				canvas.setTool(rectangleFTool);
+				undoButton.setEnabled(true);
 			}
 		});
 		ovalButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canvis.setTool(ovalTool);
+				canvas.setTool(ovalTool);
+				undoButton.setEnabled(true);
 			}
 		});
 		ovalFButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canvis.setTool(ovalFTool);
+				canvas.setTool(ovalFTool);
+				undoButton.setEnabled(true);
 			}
 		});
 		bucketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				canvis.setTool(bucketTool);
+				canvas.setTool(bucketTool);
+				undoButton.setEnabled(true);
 			}
 		});
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// erase canvis
-			}
-		});
-		eraseButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// add erase by passing colors into setTool
-			}
-		});
 
+			}
+		});
+		colorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		undoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				canvas.undo();
+				redoButton.setEnabled(true);
+				if (canvas.undoIsEmpty()) {
+					undoButton.setEnabled(false);
+				}
+			}
+		});
+		redoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				canvas.redo();
+				undoButton.setEnabled(true);
+				if (canvas.redoIsEmpty()) {
+					redoButton.setEnabled(false);
+				}
+			}
+		});
 	}
 
-	public void addCompnents() {
+	private void addCompnents() {
 		container.add(toolPanel, BorderLayout.NORTH);
-		container.add(canvis, BorderLayout.CENTER);
+		container.add(canvas, BorderLayout.CENTER);
 
 		toolPanel.add(pencilButton);
 		toolPanel.add(lineButton);
@@ -128,11 +152,12 @@ public class PaintFrame extends JFrame {
 		toolPanel.add(ovalFButton);
 		toolPanel.add(bucketButton);
 		toolPanel.add(newButton);
-		toolPanel.add(eraseButton);
-
+		toolPanel.add(colorButton);
+		toolPanel.add(undoButton);
+		toolPanel.add(redoButton);
 	}
 
-	public void formatComponents() {
+	private void formatComponents() {
 		container.setLayout(new BorderLayout());
 		toolPanel.setLayout(new FlowLayout());
 
@@ -143,10 +168,11 @@ public class PaintFrame extends JFrame {
 		ovalButton.setBorder(new LineBorder(Color.orange, 5, true));
 		ovalFButton.setBackground(Color.orange);
 		bucketButton.setBackground(Color.yellow);
-		eraseButton.setBackground(Color.white);
 		newButton.setBackground(Color.gray);
+		redoButton.setEnabled(false);
+		undoButton.setEnabled(false);
 
-		font = new Font("Calibri", Font.PLAIN, 20);
+		font = new Font("Calibri", Font.PLAIN, 15);
 		pencilButton.setFont(font);
 		lineButton.setFont(font);
 		rectangleButton.setFont(font);
@@ -160,8 +186,6 @@ public class PaintFrame extends JFrame {
 		ovalFButton.setFont(font);
 		bucketButton.setFont(font);
 		newButton.setFont(font);
-		eraseButton.setFont(font);
-
 	}
 
 	public static void main(String[] args) {
