@@ -41,10 +41,10 @@ public class Canvas extends JPanel {
 			public void mouseReleased(MouseEvent event) {
 				tool.mouseReleased(buffer.getGraphics(), event.getX(), event.getY(), color);
 				repaint();
-				undo.push(buffer.getData());
 			}
 
 			public void mousePressed(MouseEvent event) {
+				undo.push(buffer.getData());
 				tool.mousePressed(buffer.getGraphics(), event.getX(), event.getY(), color);
 				repaint();
 			}
@@ -86,14 +86,19 @@ public class Canvas extends JPanel {
 	}
 
 	public void undo() {
-		buffer.setData(undo.pop());
-		redo.push(buffer.getData());
+		if (!undo.isEmpty()) {
+			redo.push(buffer.getData());
+			buffer.setData(undo.pop());
+			
+		}
 		repaint();
 	}
 
 	public void redo() {
-		buffer.setData(redo.pop());
-		undo.push(buffer.getData());
+		if (!redo.isEmpty()){
+			undo.push(buffer.getData());
+			buffer.setData(redo.pop());
+		}
 		repaint();
 	}
 

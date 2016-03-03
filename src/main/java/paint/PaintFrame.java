@@ -5,9 +5,14 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -26,6 +31,7 @@ public class PaintFrame extends JFrame {
 
 	private Tool lineTool, pencilTool, rectangleTool, rectangleFTool, ovalTool, ovalFTool, bucketTool;
 	private Font font;
+	private Color color;
 
 	public PaintFrame() {
 
@@ -40,17 +46,17 @@ public class PaintFrame extends JFrame {
 		drawPanel = new JPanel();
 		fillPanel = new JPanel();
 
-		lineButton = new JButton("Line");
-		pencilButton = new JButton("Pencil");
-		rectangleButton = new JButton("Rectangle");
-		rectangleFButton = new JButton("Fill Rectangle");
-		ovalButton = new JButton("Oval");
-		ovalFButton = new JButton("Fill Oval");
-		bucketButton = new JButton("Bucket");
-		newButton = new JButton("New Page");
-		colorButton = new JButton("Color");
-		undoButton = new JButton("Undo");
-		redoButton = new JButton("Redo");
+		lineButton = new JButton();
+		pencilButton = new JButton();
+		rectangleButton = new JButton();
+		rectangleFButton = new JButton();
+		ovalButton = new JButton();
+		ovalFButton = new JButton();
+		bucketButton = new JButton();
+		newButton = new JButton();
+		colorButton = new JButton();
+		undoButton = new JButton();
+		redoButton = new JButton();
 
 		lineTool = new LineTool();
 		pencilTool = new PencilTool();
@@ -70,43 +76,36 @@ public class PaintFrame extends JFrame {
 		lineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.setTool(lineTool);
-				undoButton.setEnabled(true);
 			}
 		});
 		pencilButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.setTool(pencilTool);
-				undoButton.setEnabled(true);
 			}
 		});
 		rectangleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.setTool(rectangleTool);
-				undoButton.setEnabled(true);
 			}
 		});
 		rectangleFButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.setTool(rectangleFTool);
-				undoButton.setEnabled(true);
 			}
 		});
 		ovalButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.setTool(ovalTool);
-				undoButton.setEnabled(true);
 			}
 		});
 		ovalFButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.setTool(ovalFTool);
-				undoButton.setEnabled(true);
 			}
 		});
 		bucketButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.setTool(bucketTool);
-				undoButton.setEnabled(true);
 			}
 		});
 		newButton.addActionListener(new ActionListener() {
@@ -117,25 +116,29 @@ public class PaintFrame extends JFrame {
 		});
 		colorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				color = JColorChooser.showDialog(null, "Choose a color", Color.BLACK);
+				if (color != null) {
+					colorButton.setBackground(color);
+					canvas.setColor(color);
+				}
 			}
 		});
 		undoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.undo();
-				redoButton.setEnabled(true);
-				if (canvas.undoIsEmpty()) {
-					undoButton.setEnabled(false);
-				}
+				// redoButton.setEnabled(true);
+				// if (canvas.undoIsEmpty()) {
+				// undoButton.setEnabled(false);
+				// }
 			}
 		});
 		redoButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				canvas.redo();
-				undoButton.setEnabled(true);
-				if (canvas.redoIsEmpty()) {
-					redoButton.setEnabled(false);
-				}
+				// undoButton.setEnabled(true);
+				// if (canvas.redoIsEmpty()) {
+				// redoButton.setEnabled(false);
+				// }
 			}
 		});
 	}
@@ -161,35 +164,30 @@ public class PaintFrame extends JFrame {
 		container.setLayout(new BorderLayout());
 		toolPanel.setLayout(new FlowLayout());
 
-		pencilButton.setBorder(new LineBorder(Color.red, 5, true));
-		lineButton.setBorder(new LineBorder(Color.blue, 5, true));
-		rectangleButton.setBorder(new LineBorder(Color.green, 5, true));
-		rectangleFButton.setBackground(Color.green);
-		ovalButton.setBorder(new LineBorder(Color.orange, 5, true));
-		ovalFButton.setBackground(Color.orange);
-		bucketButton.setBackground(Color.yellow);
-		newButton.setBackground(Color.gray);
-		redoButton.setEnabled(false);
-		undoButton.setEnabled(false);
-
 		font = new Font("Calibri", Font.PLAIN, 15);
-		pencilButton.setFont(font);
-		lineButton.setFont(font);
-		rectangleButton.setFont(font);
-		rectangleFButton.setFont(font);
-		ovalButton.setFont(font);
-		ovalFButton.setFont(font);
-		bucketButton.setFont(font);
-		rectangleButton.setFont(font);
-		rectangleFButton.setFont(font);
-		ovalButton.setFont(font);
-		ovalFButton.setFont(font);
-		bucketButton.setFont(font);
-		newButton.setFont(font);
+		pencilButton.setIcon(new ImageIcon(formatIcon(40, 30, "draw.jpg")));
+		lineButton.setIcon(new ImageIcon(formatIcon(40, 30, "line.png")));
+		rectangleButton.setIcon(new ImageIcon(formatIcon(40, 30, "rectangle.png")));
+		rectangleFButton.setIcon(new ImageIcon(formatIcon(40, 30, "fillRectangle.jpg")));
+		ovalButton.setIcon(new ImageIcon(formatIcon(40, 30, "circle.png")));
+		ovalFButton.setIcon(new ImageIcon(formatIcon(40, 30, "fillCircle.png")));
+		bucketButton.setIcon(new ImageIcon(formatIcon(40, 30, "bucket.png")));
+		colorButton.setIcon(new ImageIcon(formatIcon(40, 30, "paintBrush.png")));
+		colorButton.setBackground(Color.black);
+		undoButton.setIcon(new ImageIcon(formatIcon(40, 30, "undo.jpg")));
+		redoButton.setIcon(new ImageIcon(formatIcon(40, 30, "redo.jpg")));
+		newButton.setText("NEW");
+	}
+
+	public Image formatIcon(int width, Integer height, String image) {
+		ImageIcon icon = new ImageIcon(image);
+		Image img = icon.getImage().getScaledInstance(width, height, java.awt.Image.SCALE_SMOOTH);
+		return img;
 	}
 
 	public static void main(String[] args) {
 		PaintFrame frame = new PaintFrame();
 		frame.setVisible(true);
 	}
+
 }
