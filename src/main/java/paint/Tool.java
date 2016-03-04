@@ -3,15 +3,21 @@ package paint;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public interface Tool {
+public abstract class Tool {
 	// all interface methods are public
 
+	protected PaintProperties properties;
+
+	public Tool(PaintProperties properties) {
+		this.properties = properties;
+	}
+
 	// get the point not the event becasue all we care about is the x and y
-	void mousePressed(Graphics g, int x, int y, Color color);
+	abstract void mousePressed(Graphics g, int x, int y);
 
-	void mouseReleased(Graphics g, int x, int y, Color color);
+	abstract void mouseReleased(Graphics g, int x, int y);
 
-	void mouseDragged(Graphics g, int x, int y, Color color);
+	abstract void mouseDragged(Graphics g, int x, int y);
 
-	void drawPreview(Graphics g, Color color);
+	abstract void drawPreview(Graphics g);
 }

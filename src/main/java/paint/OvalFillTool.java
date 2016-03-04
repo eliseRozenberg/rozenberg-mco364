@@ -3,11 +3,15 @@ package paint;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class OvalFillTool implements Tool {
+public class OvalFillTool extends Tool {
+	public OvalFillTool(PaintProperties properties) {
+		super(properties);
+	}
+
 	private int x1, y1, x2, y2, tempX, tempY, width, height;
 
-	public void mousePressed(Graphics g, int x, int y, Color color) {
-		g.setColor(color);
+	public void mousePressed(Graphics g, int x, int y) {
+		g.setColor(properties.getColor());
 		x1 = x;
 		y1 = y;
 		x2 = x;
@@ -15,20 +19,20 @@ public class OvalFillTool implements Tool {
 
 	}
 
-	public void mouseReleased(Graphics g, int x, int y, Color color) {
-		g.setColor(color);
+	public void mouseReleased(Graphics g, int x, int y) {
+		g.setColor(properties.getColor());
 		x2 = x;
 		y2 = y;
 		g.fillOval(tempX, tempY, width, height);
 	}
 
-	public void mouseDragged(Graphics g, int x, int y, Color color) {
+	public void mouseDragged(Graphics g, int x, int y) {
 		x2 = x;
 		y2 = y;
 	}
 
-	public void drawPreview(Graphics g, Color color) {
-		g.setColor(color);
+	public void drawPreview(Graphics g) {
+		g.setColor(properties.getColor());
 		tempX = x1;
 		tempY = y1;
 		width = x2 - x1;

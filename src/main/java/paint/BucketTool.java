@@ -4,24 +4,47 @@ import java.awt.Color;
 import java.awt.Graphics;
 //needs to get a point that stores colors
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorConvertOp;
 import java.util.LinkedList;
+import java.util.Properties;
 import java.util.Queue;
 
-public class BucketTool implements Tool {
+import javax.swing.Box.Filler;
+
+public class BucketTool extends Tool {
 	private BufferedImage image;
-	Queue<Point> points;
+	private Queue<Point> points;
+	private Color color;
 
-	public BucketTool(Canvas canvis) {
-		image = canvis.getBufferedImage();
+	public BucketTool(PaintProperties properties) {
+		super(properties);
+		image = properties.getImage();
 		points = new LinkedList<Point>();
+		color = properties.getColor();
 	}
 
-	public void mousePressed(Graphics g, int x, int y, Color color) {
+	public void mousePressed(Graphics g, int x, int y) {
 	}
 
-	public void mouseReleased(Graphics g, int x, int y, Color newColor) {
+	public void mouseReleased(Graphics g, int x, int y) {
+		color = properties.getColor();
+		fill(x, y, color);
+	}
+
+	public void mouseDragged(Graphics g, int x, int y) {
+
+	}
+
+	public void drawPreview(Graphics g) {
+	}
+
+	public void fill(int x, int y, Color newColor) {
 		Point point = new Point(x, y);
 		int rgb = image.getRGB(x, y);
+		int target = newColor.getRGB();
+		if (rgb == target) {
+			return;
+		}
 		points.add(point);
 		while (!points.isEmpty()) {
 			point = points.remove();
@@ -29,7 +52,7 @@ public class BucketTool implements Tool {
 			y = point.getY();
 			if (x < image.getWidth() && x >= 0 && y < image.getHeight() && y >= 0)
 				if (image.getRGB(x, y) == rgb) {
-					image.setRGB(x, y, newColor.getRGB());
+					image.setRGB(x, y, target);
 					points.add(new Point(x, y + 1));
 					points.add(new Point(x, y - 1));
 					points.add(new Point(x + 1, y));
@@ -38,13 +61,4 @@ public class BucketTool implements Tool {
 		}
 	}
 
-	public void mouseDragged(Graphics g, int x, int y, Color color) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void drawPreview(Graphics g, Color color) {
-		// TODO Auto-generated method stub
-
-	}
 }
