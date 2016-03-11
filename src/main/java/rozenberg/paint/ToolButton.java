@@ -1,4 +1,4 @@
-package paint;
+package rozenberg.paint;
 
 import java.awt.Color;
 import java.awt.Image;

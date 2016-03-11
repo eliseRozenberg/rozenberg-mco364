@@ -1,4 +1,4 @@
-package paint;
+package rozenberg.paint;
 
 //resize outside of program
 
@@ -18,6 +18,10 @@ import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 public class PaintFrame extends JFrame {
 	/**
 	 * 
@@ -32,13 +36,14 @@ public class PaintFrame extends JFrame {
 	private JButton colorButton, undoButton, redoButton, newButton;
 	private Color color;
 
+	@Inject
 	public PaintFrame() {
-
 		setTitle("Paint");
 		setSize(900, 900);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
 		container = getContentPane();
+
 		properties = new PaintProperties(1, new BufferedImage(900, 900, BufferedImage.TYPE_INT_ARGB));
 
 		canvas = new Canvas(properties);
@@ -134,7 +139,9 @@ public class PaintFrame extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		PaintFrame frame = new PaintFrame();
+		Injector injector = Guice.createInjector(new PaintModule());
+		PaintFrame frame = injector.getInstance(PaintFrame.class);
+		// PaintFrame frame = new PaintFrame();
 		frame.setVisible(true);
 	}
 

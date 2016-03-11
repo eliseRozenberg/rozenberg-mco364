@@ -1,8 +1,9 @@
-package paint;
+package rozenberg.paint;
 
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 
 public class PaintProperties {
 
@@ -11,6 +12,14 @@ public class PaintProperties {
 	private Color color;
 	private int weight;
 	private BufferedImage image;
+
+	public PaintProperties() {
+		width = 800;
+		height = 800;
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		this.color = Color.black;
+		this.weight = 1;
+	}
 
 	public PaintProperties(int weight, BufferedImage image) {
 		this.width = image.getWidth();
