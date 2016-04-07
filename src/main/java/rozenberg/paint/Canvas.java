@@ -12,6 +12,10 @@ import java.util.Stack;
 
 import javax.swing.JPanel;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+@Singleton
 public class Canvas extends JPanel {
 
 	/**
@@ -27,6 +31,7 @@ public class Canvas extends JPanel {
 	// private Stack<BufferedImage> redo;
 	private Tool tool;
 
+	@Inject
 	public Canvas(PaintProperties properties) {
 		this.properties = properties;
 		tool = new PencilTool(this.properties);
@@ -132,7 +137,7 @@ public class Canvas extends JPanel {
 	}
 
 	public void clear() {
-		buffer = new BufferedImage(900, 900, BufferedImage.TYPE_INT_ARGB);
+		buffer = new BufferedImage(properties.getWeight(), properties.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics g = getGraphics();
 		g.drawImage(buffer, 0, 0, null);
 		repaint();

@@ -5,6 +5,10 @@ import java.awt.Paint;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+@Singleton
 public class PaintProperties {
 
 	private int width;
@@ -14,10 +18,10 @@ public class PaintProperties {
 	private BufferedImage image;
 
 	public PaintProperties() {
-		width = 800;
-		height = 800;
-		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		this.color = Color.black;
+		width = 900;
+		height = 900;
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		this.color = Color.BLACK;
 		this.weight = 1;
 	}
 
@@ -25,7 +29,7 @@ public class PaintProperties {
 		this.width = image.getWidth();
 		this.height = image.getHeight();
 		this.weight = weight;
-		this.color = Color.black;
+		this.color = Color.BLACK;
 		this.image = image;
 	}
 
