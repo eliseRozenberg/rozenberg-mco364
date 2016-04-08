@@ -55,7 +55,8 @@ public class PaintFrame extends JFrame {
 		Logger logger = Logger.getLogger("rozenberg.paint");
 		logger.setLevel(Level.FINE);
 		//set level of logger
-		Handler handler = new FileHandler("log");
+		Handler handler = new ConsoleHandler();
+		//Handler handler = new FileHandler("log");
 		//handles where the logs get sent to
 		handler.setLevel(Level.FINE);
 		logger.addHandler(handler);
