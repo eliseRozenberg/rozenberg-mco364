@@ -22,7 +22,7 @@ public class LineToolTest {
 
 		Mockito.verify(g, Mockito.atLeastOnce()).setColor(Color.red);
 		Mockito.verify(g).drawLine(5, 5, 10, 10);
-
+		// that repaint was called with these variables
 	}
 
 	public void testDrawPreview() {
