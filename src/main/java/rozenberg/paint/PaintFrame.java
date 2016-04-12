@@ -3,32 +3,18 @@ package rozenberg.paint;
 //resize outside of program
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+import 
+
+java.awt.Container;
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import com.google.common.base.FinalizablePhantomReference;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
-
 
 public class PaintFrame extends JFrame {
 	/**
@@ -54,10 +40,10 @@ public class PaintFrame extends JFrame {
 	public static void main(String[] args) throws SecurityException, IOException {
 		Logger logger = Logger.getLogger("rozenberg.paint");
 		logger.setLevel(Level.FINE);
-		//set level of logger
+		// set level of logger
 		Handler handler = new ConsoleHandler();
-		//Handler handler = new FileHandler("log");
-		//handles where the logs get sent to
+		// Handler handler = new FileHandler("log");
+		// handles where the logs get sent to
 		handler.setLevel(Level.FINE);
 		logger.addHandler(handler);
 		Injector injector = Guice.createInjector(new PaintModule());

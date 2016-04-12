@@ -4,20 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 //needs to get a point that stores colors
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorConvertOp;
 import java.util.LinkedList;
-import java.util.Properties;
 import java.util.Queue;
-
-import javax.swing.Box.Filler;
 
 public class BucketTool extends Tool {
 	private BufferedImage image;
 	private Queue<Point> points;
 	private Color color;
 
-	public BucketTool(PaintProperties properties) {
-		super(properties);
+	public BucketTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 		image = properties.getImage();
 		points = new LinkedList<Point>();
 		color = properties.getColor();

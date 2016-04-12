@@ -1,11 +1,7 @@
 package rozenberg.paint;
 
 import java.awt.Color;
-import java.awt.Paint;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton

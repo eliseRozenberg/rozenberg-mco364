@@ -1,13 +1,15 @@
 package rozenberg.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
+
+import com.google.inject.Inject;
 
 public class RectangleTool extends Tool {
 	private int x1, y1, x2, y2, tempX, tempY, width, height;
 
-	public RectangleTool(PaintProperties properties) {
-		super(properties);
+	@Inject
+	public RectangleTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	public void mousePressed(Graphics g, int x, int y) {

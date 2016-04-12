@@ -3,6 +3,8 @@ package rozenberg.paint;
 import java.awt.Graphics;
 import java.util.logging.Logger;
 
+import com.google.inject.Inject;
+
 public class LineTool extends Tool {
 
 	// every class gets it's own and unique name
@@ -13,8 +15,9 @@ public class LineTool extends Tool {
 	private int x2;
 	private int y2;
 
-	public LineTool(PaintProperties properties) {
-		super(properties);
+	@Inject
+	public LineTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	public void mousePressed(Graphics g, int x, int y) {
@@ -41,8 +44,8 @@ public class LineTool extends Tool {
 		// g.drawLine(this.x1, this.y1, x2, y2);
 		g.drawLine(this.x1, this.y1, x2, x2);
 		String message = String.format("x1 = %d, y1 = %d, x2 = %d, y2 = %d", x1, y1, x2, y2);
-		//messages can get different priorities
-		//LOG.info(message);
+		// messages can get different priorities
+		// LOG.info(message);
 		LOG.fine(message);
 	}
 

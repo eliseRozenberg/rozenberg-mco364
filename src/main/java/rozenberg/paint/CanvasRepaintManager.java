@@ -1,11 +1,14 @@
 package rozenberg.paint;
 
-import org.mockito.exceptions.misusing.CannotVerifyStubOnlyMock;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 public class CanvasRepaintManager {
 
 	private final Canvas canvas;
 
+	@Inject
 	public CanvasRepaintManager(Canvas canvas) {
 		this.canvas = canvas;
 	}

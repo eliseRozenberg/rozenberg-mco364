@@ -25,6 +25,7 @@ public class Canvas extends JPanel {
 
 	private BufferedImage buffer;
 	private PaintProperties properties;
+	private CanvasRepaintManager manager;
 	private Stack<Raster> undo;
 	private Stack<Raster> redo;
 	// private Stack<BufferedImage> undo;
@@ -32,9 +33,10 @@ public class Canvas extends JPanel {
 	private Tool tool;
 
 	@Inject
-	public Canvas(PaintProperties properties) {
+	public Canvas(CanvasRepaintManager manager, PaintProperties properties) {
 		this.properties = properties;
-		tool = new PencilTool(this.properties);
+		this.manager = manager;
+		tool = new PencilTool(this.manager, this.properties);
 		this.setBackground(Color.white);
 		buffer = properties.getImage();
 		undo = new Stack<Raster>();

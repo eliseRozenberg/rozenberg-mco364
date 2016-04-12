@@ -1,6 +1,5 @@
 package rozenberg.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 public abstract class Tool {

@@ -1,6 +1,5 @@
 package rozenberg.paint;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -8,12 +7,9 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JPanel;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -31,6 +27,7 @@ public class PaintToolbar extends Container {
 	// private JPanel toolPanel;
 	private JButton colorButton, undoButton, redoButton, newButton;
 	private Color color;
+	private CanvasRepaintManager manager;
 
 	@Inject
 	public PaintToolbar(Canvas canves, PaintProperties properties) {
@@ -44,13 +41,13 @@ public class PaintToolbar extends Container {
 		undoButton = new JButton();
 		redoButton = new JButton();
 
-		toolButtons = new ToolButton[] { new ToolButton(new LineTool(properties), "/line.png"),
-				new ToolButton(new PencilTool(properties), "/draw.jpg"),
-				new ToolButton(new RectangleTool(properties), "/rectangle.png"),
-				new ToolButton(new RectangleFillTool(properties), "/fillRectangle.jpg"),
-				new ToolButton(new OvalTool(properties), "/circle.png"),
-				new ToolButton(new OvalFillTool(properties), "/fillCircle.png"),
-				new ToolButton(new BucketTool(properties), "/bucket.png") };
+		toolButtons = new ToolButton[] { new ToolButton(new LineTool(manager, properties), "/line.png"),
+				new ToolButton(new PencilTool(manager, properties), "/draw.jpg"),
+				new ToolButton(new RectangleTool(manager, properties), "/rectangle.png"),
+				new ToolButton(new RectangleFillTool(manager, properties), "/fillRectangle.jpg"),
+				new ToolButton(new OvalTool(manager, properties), "/circle.png"),
+				new ToolButton(new OvalFillTool(manager, properties), "/fillCircle.png"),
+				new ToolButton(new BucketTool(manager, properties), "/bucket.png") };
 
 		formatComponents();
 		addCompnents();

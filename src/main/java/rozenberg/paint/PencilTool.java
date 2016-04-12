@@ -1,14 +1,16 @@
 package rozenberg.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
+
+import com.google.inject.Inject;
 
 public class PencilTool extends Tool {
 	private int x;
 	private int y;
 
-	public PencilTool(PaintProperties properties) {
-		super(properties);
+	@Inject
+	public PencilTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	public void mousePressed(Graphics g, int x, int y) {
@@ -16,7 +18,7 @@ public class PencilTool extends Tool {
 		g.fillOval(x, y, 1, 1);
 		this.x = x;
 		this.y = y;
-		manager.repaint(x, y, x+1, y+1);
+		manager.repaint(x, y, x + 1, y + 1);
 	}
 
 	public void mouseReleased(Graphics g, int x, int y) {

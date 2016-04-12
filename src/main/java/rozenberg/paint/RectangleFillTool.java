@@ -1,15 +1,17 @@
 
 package rozenberg.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
+
+import com.google.inject.Inject;
 
 public class RectangleFillTool extends Tool {
 
 	private int x1, y1, x2, y2, tempX, tempY, width, height;
 
-	public RectangleFillTool(PaintProperties properties) {
-		super(properties);
+	@Inject
+	public RectangleFillTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 		// TODO Auto-generated constructor stub
 	}
 

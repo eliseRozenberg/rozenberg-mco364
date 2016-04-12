@@ -1,3 +1,4 @@
+
 package rozenberg.paint;
 
 import java.awt.Color;
@@ -8,7 +9,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class ToolButton extends JButton {
-	private final Tool tool;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Tool tool;
 
 	public ToolButton(Tool tool, String iconName) {
 		this.tool = tool;

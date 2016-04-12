@@ -1,11 +1,10 @@
 package rozenberg.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class OvalFillTool extends Tool {
-	public OvalFillTool(PaintProperties properties) {
-		super(properties);
+	public OvalFillTool(CanvasRepaintManager manager, PaintProperties properties) {
+		super(manager, properties);
 	}
 
 	private int x1, y1, x2, y2, tempX, tempY, width, height;
