@@ -1,9 +1,12 @@
 package rozenberg.paint;
 
-import java.awt.Color;
 import java.awt.Graphics;
+import java.util.logging.Logger;
 
 public class LineTool extends Tool {
+
+	// every class gets it's own and unique name
+	private static final Logger LOG = Logger.getLogger(LineTool.class.getName());
 
 	private int x1;
 	private int y1;
@@ -35,7 +38,12 @@ public class LineTool extends Tool {
 
 	public void drawPreview(Graphics g) {
 		g.setColor(properties.getColor());
-		g.drawLine(this.x1, this.y1, x2, y2);
+		// g.drawLine(this.x1, this.y1, x2, y2);
+		g.drawLine(this.x1, this.y1, x2, x2);
+		String message = String.format("x1 = %d, y1 = %d, x2 = %d, y2 = %d", x1, y1, x2, y2);
+		//messages can get different priorities
+		//LOG.info(message);
+		LOG.fine(message);
 	}
 
 }

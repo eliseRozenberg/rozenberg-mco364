@@ -7,9 +7,11 @@ public abstract class Tool {
 	// all interface methods are public
 
 	protected PaintProperties properties;
+	protected CanvasRepaintManager manager;
 
-	public Tool(PaintProperties properties) {
+	public Tool(CanvasRepaintManager manager, PaintProperties properties) {
 		this.properties = properties;
+		this.manager = manager;
 	}
 
 	// get the point not the event becasue all we care about is the x and y

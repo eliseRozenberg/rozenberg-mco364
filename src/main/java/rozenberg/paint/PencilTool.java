@@ -16,6 +16,7 @@ public class PencilTool extends Tool {
 		g.fillOval(x, y, 1, 1);
 		this.x = x;
 		this.y = y;
+		manager.repaint(x, y, x+1, y+1);
 	}
 
 	public void mouseReleased(Graphics g, int x, int y) {
